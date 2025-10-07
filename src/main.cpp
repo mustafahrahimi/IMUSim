@@ -1,20 +1,23 @@
 #include <iostream>
 #include "vec3.hpp"
 #include "trajectory.hpp"
+#include "imu_sensor.hpp"
 
 int main() {
-    Trajectory traj(0.1);
+    Trajectory traj(0.01);
+    IMUSensor imu(0.01, 0.005, 0.01);
 
     for (int i = 0; i < 5; ++i) {
-        std::cout << "=== Time Step " << i << " ===\n";
-        Vec3 pos = traj.getPosition();
-        Vec3 vel = traj.getVelocity();
         Vec3 acc = traj.getAcceleration();
+        Vec3 vel = traj.getVelocity();
 
-        std::cout << "  Time step " << i << ":\n";
-        std::cout << "  Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
-        std::cout << "  Velocity: (" << vel.x << ", " << vel.y << ", " << vel.z << ")\n";
-        std::cout << "  Acceleration: (" << acc.x << ", " << acc.y << ", " << acc.z << ")\n";
+        Vec3 noisy_acc = imu.readAcceleration(acc);
+        Vec3 noisy_gyro = imu.readGyro(vel);
+
+        std::cout << "t=" << i*0.01
+                  << " true_acc=" << acc
+                  << " noisy_acc=" << noisy_acc
+                  << " noisy_gyro=" << noisy_gyro << "\n";
 
         traj.step();
     }
