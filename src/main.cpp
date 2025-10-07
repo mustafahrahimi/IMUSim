@@ -1,23 +1,23 @@
 #include <iostream>
 #include "vec3.hpp"
+#include "trajectory.hpp"
 
 int main() {
-    Vec3 a(1.0, 2.0, 3.0);
-    Vec3 b(4.0, 5.0, 6.0);
+    Trajectory traj(0.1);
 
-    Vec3 c = a + b;
-    Vec3 d = Vec3::cross(a, b);
-    double dp = Vec3::dot(a, b);
-    double norm_a = a.norm();
-    double sqrd_norm_a = a.squared_norm();
+    for (int i = 0; i < 5; ++i) {
+        std::cout << "=== Time Step " << i << " ===\n";
+        Vec3 pos = traj.getPosition();
+        Vec3 vel = traj.getVelocity();
+        Vec3 acc = traj.getAcceleration();
 
-    std::cout << "a: " << a << std::endl;
-    std::cout << "b: " << b << std::endl;
-    std::cout << "a + b: " << c << std::endl;
-    std::cout << "a x b: " << d << std::endl;
-    std::cout << "a . b: " << dp << std::endl;
-    std::cout << "|a|: " << norm_a << std::endl;
-    std::cout << "|a|^2: " << sqrd_norm_a << std::endl;
+        std::cout << "  Time step " << i << ":\n";
+        std::cout << "  Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
+        std::cout << "  Velocity: (" << vel.x << ", " << vel.y << ", " << vel.z << ")\n";
+        std::cout << "  Acceleration: (" << acc.x << ", " << acc.y << ", " << acc.z << ")\n";
+
+        traj.step();
+    }
 
     return 0;
 }
