@@ -23,6 +23,9 @@ struct Vec3 {
     Vec3& operator*=(double s);
     Vec3& operator/=(double s);
 
+    Vec3 cwiseMultiply(const Vec3& o) const;
+    Vec3 cwiseDivide(const Vec3& o) const;
+
     double norm() const;
     double squared_norm() const; 
     Vec3 normalized() const;

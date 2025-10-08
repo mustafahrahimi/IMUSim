@@ -11,6 +11,15 @@ Vec3& Vec3::operator-=(const Vec3& o) { x -= o.x; y -= o.y; z -= o.z; return *th
 Vec3& Vec3::operator*=(double s) { x *= s; y *= s; z *= s; return *this; }
 Vec3& Vec3::operator/=(double s) { assert(s != 0.0); x /= s; y /= s; z /= s; return *this; }
 
+Vec3 Vec3::cwiseMultiply(const Vec3& o) const {
+    return Vec3(x * o.x, y * o.y, z * o.z);
+}
+
+Vec3 Vec3::cwiseDivide(const Vec3& o) const {
+    assert(o.x != 0.0 && o.y != 0.0 && o.z != 0.0);
+    return Vec3(x / o.x, y / o.y, z / o.z);
+}
+
 double Vec3::norm() const { return std::sqrt(x*x + y*y + z*z); }
 double Vec3::squared_norm() const { return x*x + y*y + z*z; }
 Vec3 Vec3::normalized() const {
