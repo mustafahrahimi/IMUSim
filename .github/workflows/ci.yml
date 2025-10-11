@@ -22,3 +22,6 @@ jobs:
 
       # Step 4: Run container
       - run: docker run --rm imusim
+      
+      # Step 5: Run unit tests inside Docker
+      - run: docker run --rm imusim ./build/runTests
