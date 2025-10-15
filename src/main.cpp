@@ -26,7 +26,7 @@ int main() {
 
         traj.step();
     }
-    
+
     std::cout << "Simulation complete. Results saved to simulation.csv\n";
     return 0;
 }
